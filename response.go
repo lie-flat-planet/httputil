@@ -11,6 +11,7 @@ type RESP struct {
 	ServiceCode int
 	Content     any
 	Err         error
+	HttpCode    int
 }
 
 func (resp *RESP) Output(ctx *gin.Context) {
@@ -27,6 +28,13 @@ func (resp *RESP) Output(ctx *gin.Context) {
 		})
 		return
 
+	}
+
+	if resp.HttpCode > 0 {
+		ctx.AbortWithStatusJSON(resp.HttpCode, ErrorRESP{
+			Code: resp.HttpCode*1e6 + resp.ServiceCode,
+			Msg:  resp.Err.Error(),
+		})
 	}
 
 	ctx.AbortWithStatusJSON(http.StatusInternalServerError, ErrorRESP{
