@@ -35,6 +35,7 @@ func (resp *RESP) Output(ctx *gin.Context) {
 			Code: resp.HttpCode*1e6 + resp.ServiceCode,
 			Msg:  resp.Err.Error(),
 		})
+		return
 	}
 
 	ctx.AbortWithStatusJSON(http.StatusInternalServerError, ErrorRESP{
