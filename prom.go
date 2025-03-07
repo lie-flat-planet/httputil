@@ -14,9 +14,9 @@ type MetricsInfo struct { // 具体某个时序数据，比如GPU0
 }
 
 type MetricsValues struct {
-	Value     string `json:"value"`
-	Timestamp int64  `json:"timestamp"`
-	Color     string `json:"color"`
+	Value     float64 `json:"value"`
+	Timestamp int64   `json:"timestamp"`
+	Color     string  `json:"color"`
 }
 
 func PromCommonModelValue(promValues []model.Value) ([]MetricsFromExpr, error) {
@@ -48,7 +48,7 @@ func ParseModelValue2MetricsData(commonModelValue model.Value) (MetricsFromExpr,
 			var values []MetricsValues
 			for _, value := range sample.Values {
 				values = append(values, MetricsValues{
-					Value:     value.Value.String(),
+					Value:     float64(value.Value),
 					Timestamp: value.Timestamp.Unix(),
 				})
 			}
