@@ -46,6 +46,6 @@ func (resp *RESP) Output(ctx *gin.Context) {
 }
 
 type ErrorRESP struct {
-	Code int    `json:"type"`
+	Code int    `json:"code"`
 	Msg  string `json:"msg"`
 }
