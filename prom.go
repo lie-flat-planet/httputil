@@ -28,7 +28,9 @@ func PromCommonModelValue(promValues []model.Value) ([]MetricsFromExpr, error) {
 			return nil, err
 		}
 
-		ret = append(ret, mData)
+		if len(mData) > 0 {
+			ret = append(ret, mData)
+		}
 	}
 
 	return ret, nil
