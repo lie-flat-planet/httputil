@@ -14,9 +14,11 @@ type MetricsInfo struct { // 具体某个时序数据，比如GPU0
 }
 
 type MetricsValues struct {
-	Value     float64 `json:"value"`
-	Timestamp int64   `json:"timestamp"`
-	Color     string  `json:"color"`
+	Value                 float64 `json:"value"`
+	Timestamp             int64   `json:"timestamp"`
+	Color                 string  `json:"color"`            // 这是panel上设置的
+	BandwidthPercent      float64 `json:"bandwidthPercent"` // 所占带宽百分比
+	BandwidthPercentColor string  `json:"bandwidthColor"`   // 带宽百分比颜色
 }
 
 func PromCommonModelValue(promValues []model.Value) ([]MetricsFromExpr, error) {
