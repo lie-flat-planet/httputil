@@ -49,3 +49,7 @@ type ErrorRESP struct {
 	Code int    `json:"code"`
 	Msg  string `json:"msg"`
 }
+
+type SuccessRESP struct {
+	Msg string `json:"msg"`
+}
