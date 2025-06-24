@@ -45,6 +45,24 @@ func ParseModelValue2MetricsData(commonModelValue model.Value) (MetricsFromExpr,
 	case model.ValScalar:
 		logrus.Warnf("need to parse 'Scalar' type value")
 	case model.ValVector:
+		vector := commonModelValue.(model.Vector)
+		for _, sample := range vector {
+			var mtc = make(map[string]string)
+			for k, v := range sample.Metric {
+				mtc[string(k)] = string(v)
+			}
+
+			ret = append(ret, MetricsInfo{
+				Metric: mtc,
+				Values: []MetricsValues{
+					{
+						Value:     float64(sample.Value),
+						Timestamp: sample.Timestamp.Unix(),
+					},
+				},
+			})
+		}
+
 		logrus.Warnf("need to parse 'Vector' type value")
 	case model.ValMatrix:
 		matrix := commonModelValue.(model.Matrix)
